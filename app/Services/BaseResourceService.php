@@ -14,7 +14,7 @@ class BaseResourceService
      *
      * @var \App\Repositories\Interfaces\BaseResourceRepositoryInterface
      */
-    protected BaseResourceRepositoryInterface $repository;
+    public BaseResourceRepositoryInterface $repository;
 
     /**
      * Default pagination size.
@@ -31,6 +31,16 @@ class BaseResourceService
     public function __construct(BaseResourceRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * Get repository instance.
+     *
+     * @return \App\Repositories\Interfaces\BaseResourceRepositoryInterface
+     */
+    public function repository(): BaseResourceRepositoryInterface
+    {
+        return $this->repository;
     }
 
     /**
