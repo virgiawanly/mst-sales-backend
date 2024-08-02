@@ -11,7 +11,7 @@ class CreateSalesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class CreateSalesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'tgl' => 'required|date',
+            'cust_id' => 'required|exists:m_customer,id',
+            'ongkir' => 'nullable|sometimes|numeric|min:0',
+            'diskon' => 'nullable|sometimes|numeric|min:0',
+            'details' => 'required|array',
+            'details.*.barang_id' => 'required', // Exists validation in service
+            'details.*.qty' => 'required|numeric|min:1',
+            'details.*.diskon_pct' => 'nullable|sometimes|numeric|min:0',
+            'details.*.diskon_nilai' => 'nullable|sometimes|numeric|min:0',
         ];
     }
 }
