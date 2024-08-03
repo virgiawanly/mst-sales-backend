@@ -22,7 +22,7 @@ class UpdateBarangRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode' => 'required|max:10|unique:m_barang,kode,' . $this->barang,
+            'kode' => 'required|max:10|unique:m_barang,kode,' . $this->barang . ',id,deleted_at,NULL',
             'nama' => 'required|max:100',
             'harga' => 'required|numeric|min:0'
         ];
