@@ -29,9 +29,10 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
         $sortBy = $queryParams['sort'] ?? '';
         $order = $queryParams['order'] ?? 'asc';
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
+        $searchableColumns = $queryParams['searchable_columns'] ?? [];
 
         return $this->model
-            ->search($search)
+            ->search($search, $searchableColumns)
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->get();
@@ -50,9 +51,10 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
         $sortBy = $queryParams['sort'] ?? '';
         $order = $queryParams['order'] ?? 'asc';
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
+        $searchableColumns = $queryParams['searchable_columns'] ?? [];
 
         return $this->model
-            ->search($search)
+            ->search($search, $searchableColumns)
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->paginate($perPage);

@@ -37,18 +37,35 @@ class BaseModel extends Model
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query
      * @param  string $keyword
+     * @param  array|string|null $searchableColumns
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch(Builder $query, string $keyword): Builder
+    public function scopeSearch(Builder $query, string $keyword, array|string|null $searchableColumns = null): Builder
     {
         if (!$keyword) {
             return $query;
         }
 
-        return $query->where(function ($subQuery) use ($keyword) {
+        // Default searchable columns
+        $searchables = $this->searchables;
+
+        // Set custom searchable columns
+        if (!empty($searchableColumns)) {
+            // Check if the query param is a string
+            if (is_string($searchableColumns)) {
+                $searchableColumns = explode(',', $searchableColumns);
+            }
+
+            // Check included columns
+            $searchables = collect($searchables)->filter(function ($searchable) use ($searchableColumns) {
+                return in_array($searchable, $searchableColumns);
+            });
+        }
+
+        return $query->where(function ($subQuery) use ($keyword, $searchables) {
             // escape the search query for % characters
             $keyword = str_replace('%', '\\%', $keyword);
-            foreach ($this->searchables as $searchable) {
+            foreach ($searchables as $searchable) {
                 $subQuery->orWhere($searchable, 'LIKE', "%{$keyword}%");
             }
         });

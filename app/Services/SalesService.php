@@ -170,6 +170,7 @@ class SalesService extends BaseResourceService
         $totalBayar = $subtotal - $additionalDiscount + $ongkir;
 
         // Update sales
+        $sales->subtotal = $subtotal;
         $sales->total_bayar = $totalBayar;
         $sales->save();
 
