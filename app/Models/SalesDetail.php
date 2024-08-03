@@ -31,4 +31,14 @@ class SalesDetail extends BaseModel
         'harga_diskon',
         'total',
     ];
+
+    /**
+     * Get the barang of the sales detail.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id', 'id');
+    }
 }
