@@ -34,7 +34,7 @@ class SalesController extends BaseResourceController
     {
         try {
             $result = $this->salesService->getSalesCode($request->sales_id ?? null);
-            return ResponseHelper::success('Successfully retrieved sales code.', $result, 200);
+            return ResponseHelper::data($result, 200);
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -52,7 +52,7 @@ class SalesController extends BaseResourceController
             DB::beginTransaction();
             $result = $this->salesService->save($request->validated());
             DB::commit();
-            return ResponseHelper::success('Successfully created.', $result, 201);
+            return ResponseHelper::success(trans('messages.successfully_created'), $result, 201);
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             return ResponseHelper::notFound($e->getMessage(), $e);
@@ -76,7 +76,7 @@ class SalesController extends BaseResourceController
 
             return ResponseHelper::data($result);
         } catch (ModelNotFoundException $e) {
-            return ResponseHelper::notFound('Resource not found.');
+            return ResponseHelper::notFound(trans('messages.resource_not_found'));
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -95,7 +95,7 @@ class SalesController extends BaseResourceController
             DB::beginTransaction();
             $result = $this->salesService->update($id, $request->validated());
             DB::commit();
-            return ResponseHelper::success('Successfully updated.', $result, 200);
+            return ResponseHelper::success(trans('messages.successfully_updated'), $result, 200);
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             return ResponseHelper::notFound($e->getMessage(), $e);
