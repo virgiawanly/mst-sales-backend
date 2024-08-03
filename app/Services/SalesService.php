@@ -40,15 +40,16 @@ class SalesService extends BaseResourceService
         $prefix = date('Ym') . '-';
 
         $incrementNumber = 1;
-        $latestSale = Sales::where('sales_number', 'like', $prefix . '%')
-            ->orderBy('sales_number', 'desc')
+        $latestSale = Sales::where('kode', 'like', $prefix . '%')
+            ->orderBy('kode', 'desc')
             ->first();
 
         if ($latestSale) {
-            $incrementNumber = (int) str_replace($prefix, '', $latestSale->sales_number);
+            $incrementNumber = (int) str_replace($prefix, '', $latestSale->kode);
             $incrementNumber = $incrementNumber + 1;
-            $incrementNumber = str_pad($incrementNumber, 4, '0', STR_PAD_LEFT);
         }
+
+        $incrementNumber = str_pad($incrementNumber, 4, '0', STR_PAD_LEFT);
 
         return $prefix . $incrementNumber;
     }
