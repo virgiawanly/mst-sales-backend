@@ -14,7 +14,7 @@ class AuthService
      * @param  array $data
      * @return array
      */
-    public function loginWebApp(array $data)
+    public function loginWebApp(array $data): array
     {
         // Find user
         $user = User::query()
@@ -31,6 +31,18 @@ class AuthService
         return [
             'user' => $user,
             'token' => $user->createToken('WebAppToken')->plainTextToken
+        ];
+    }
+
+    /**
+     * Get current logged in user profile.
+     *
+     * @return array
+     */
+    public function getUserProfile(): array
+    {
+        return [
+            'user' => auth()->user(),
         ];
     }
 }

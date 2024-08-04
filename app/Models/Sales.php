@@ -37,12 +37,12 @@ class Sales extends BaseModel
      * @var array<int, string>
      */
     protected $searchables = [
-        'kode',
-        'tgl',
-        'subtotal',
-        'diskon',
-        'ongkir',
-        'total_bayar',
+        't_sales.kode',
+        't_sales.tgl',
+        't_sales.subtotal',
+        't_sales.diskon',
+        't_sales.ongkir',
+        't_sales.total_bayar',
     ];
 
     /**
@@ -61,13 +61,23 @@ class Sales extends BaseModel
     ];
 
     /**
+     * The columns or expressions that will be sorted if the given parameter exists.
+     *
+     * @var array<string, string>
+     */
+    protected $sortColumns = [
+        'customer' => 'm_customer.nama',
+        'details_count' => 'details_count',
+    ];
+
+    /**
      * Get the customer of the sales.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'cust_id', 'id');
+        return $this->belongsTo(Customer::class, 'cust_id', 'id')->withTrashed();
     }
 
     /**

@@ -29,9 +29,10 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
         $sortBy = $queryParams['sort'] ?? '';
         $order = $queryParams['order'] ?? 'asc';
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
+        $searchableColumns = $queryParams['searchable_columns'] ?? [];
 
         return $this->model
-            ->search($search)
+            ->search($search, $searchableColumns)
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->get();
@@ -50,9 +51,10 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
         $sortBy = $queryParams['sort'] ?? '';
         $order = $queryParams['order'] ?? 'asc';
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
+        $searchableColumns = $queryParams['searchable_columns'] ?? [];
 
         return $this->model
-            ->search($search)
+            ->search($search, $searchableColumns)
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->paginate($perPage);
@@ -67,6 +69,17 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
     public function find(int $id): Model
     {
         return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Get a resource by id with trashed.
+     *
+     * @param  int $id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findWithTrashed(int $id): Model
+    {
+        return $this->model->withTrashed()->findOrFail($id);
     }
 
     /**

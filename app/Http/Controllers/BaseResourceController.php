@@ -59,7 +59,7 @@ abstract class BaseResourceController extends Controller
     {
         try {
             $result = $this->service->save($request->all());
-            return ResponseHelper::success('Successfully created.', $result, 201);
+            return ResponseHelper::success(trans('messages.successfully_created'), $result, 201);
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -77,7 +77,7 @@ abstract class BaseResourceController extends Controller
             $result = $this->service->find($id);
             return ResponseHelper::data($result);
         } catch (ModelNotFoundException $e) {
-            return ResponseHelper::notFound('Resource not found.');
+            return ResponseHelper::notFound(trans('messages.resource_not_found'));
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -94,9 +94,9 @@ abstract class BaseResourceController extends Controller
     {
         try {
             $result = $this->service->patch($id, $request->all());
-            return ResponseHelper::success('Successfully updated.', $result);
+            return ResponseHelper::success(trans('messages.successfully_updated'), $result);
         } catch (ModelNotFoundException $e) {
-            return ResponseHelper::notFound('Resource not found.');
+            return ResponseHelper::notFound(trans('messages.resource_not_found'));
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -112,9 +112,9 @@ abstract class BaseResourceController extends Controller
     {
         try {
             $this->service->delete($id);
-            return ResponseHelper::success('Successfully deleted.');
+            return ResponseHelper::success(trans('messages.successfully_deleted'));
         } catch (ModelNotFoundException $e) {
-            return ResponseHelper::notFound('Resource not found.');
+            return ResponseHelper::notFound(trans('messages.resource_not_found'));
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }

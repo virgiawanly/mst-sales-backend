@@ -22,7 +22,7 @@ class CreateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kode' => 'required|max:10|unique:m_customer,kode',
+            'kode' => 'required|max:10|unique:m_customer,kode,null,id,deleted_at,NULL',
             'nama' => 'required|max:100',
             'telp' => 'required|max:20'
         ];

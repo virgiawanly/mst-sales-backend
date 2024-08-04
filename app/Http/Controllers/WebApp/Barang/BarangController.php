@@ -31,7 +31,7 @@ class BarangController extends BaseResourceController
     {
         try {
             $result = $this->service->save($request->validated());
-            return ResponseHelper::success('Successfully created.', $result, 201);
+            return ResponseHelper::success(trans('messages.successfully_created'), $result, 201);
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }
@@ -48,7 +48,7 @@ class BarangController extends BaseResourceController
     {
         try {
             $result = $this->service->patch($id, $request->validated());
-            return ResponseHelper::success('Successfully updated.', $result, 200);
+            return ResponseHelper::success(trans('messages.successfully_updated'), $result, 200);
         } catch (Exception $e) {
             return ResponseHelper::internalServerError($e->getMessage(), $e);
         }

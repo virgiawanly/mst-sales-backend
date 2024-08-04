@@ -33,8 +33,14 @@ class SalesRepository extends BaseResourceRepository implements SalesRepositoryI
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
 
         return $this->model
+            ->leftJoin('m_customer', 't_sales.cust_id', '=', 'm_customer.id')
+            ->select('t_sales.*')
             ->with(['customer'])
-            ->search($search)
+            ->withCount(['details'])
+            ->when($search, function ($query) use ($search) {
+                $query->search($search)
+                    ->orWhere('m_customer.nama', 'LIKE', '%' . $search . '%');
+            })
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->get();
@@ -55,8 +61,14 @@ class SalesRepository extends BaseResourceRepository implements SalesRepositoryI
         $sortOrder = (str_contains($order, 'asc') ? 'asc' : 'desc') ?? '';
 
         return $this->model
+            ->leftJoin('m_customer', 't_sales.cust_id', '=', 'm_customer.id')
+            ->select('t_sales.*')
             ->with(['customer'])
-            ->search($search)
+            ->withCount(['details'])
+            ->when($search, function ($query) use ($search) {
+                $query->search($search)
+                    ->orWhere('m_customer.nama', 'LIKE', '%' . $search . '%');
+            })
             ->searchColumns($queryParams)
             ->ofOrder($sortBy, $sortOrder)
             ->paginate($perPage);
