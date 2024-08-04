@@ -244,7 +244,7 @@ class SalesService extends BaseResourceService
         $details = $payload['details'];
         foreach ($details as $index => $detail) {
             // Validate barang validity
-            $barang = $barangRepository->find($detail['barang_id']);
+            $barang = $barangRepository->findWithTrashed($detail['barang_id']);
 
             if (empty($barang)) {
                 throw new ModelNotFoundException(trans('messages.sales_line_not_found', [

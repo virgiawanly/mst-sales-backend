@@ -4,6 +4,7 @@ return [
     'successfully_created' => 'Berhasil dibuat',
     'successfully_updated' => 'Berhasil diupdate',
     'successfully_retrieved' => 'Berhasil diambil',
+    'successfully_deleted' => 'Berhasil dihapus',
     'resource_not_found' => 'Data tidak ditemukan',
     'named_resource_not_found' => 'Data :name tidak ditemukan',
     'sorry_not_authorized' => 'Maaf, anda tidak diizinkan untuk melakukanakses tindakan ini',

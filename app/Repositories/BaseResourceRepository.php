@@ -72,6 +72,17 @@ class BaseResourceRepository implements BaseResourceRepositoryInterface
     }
 
     /**
+     * Get a resource by id with trashed.
+     *
+     * @param  int $id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findWithTrashed(int $id): Model
+    {
+        return $this->model->withTrashed()->findOrFail($id);
+    }
+
+    /**
      * Create a new resource.
      *
      * @param  array $data

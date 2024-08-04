@@ -77,7 +77,7 @@ class Sales extends BaseModel
      */
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'cust_id', 'id');
+        return $this->belongsTo(Customer::class, 'cust_id', 'id')->withTrashed();
     }
 
     /**

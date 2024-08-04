@@ -112,7 +112,7 @@ abstract class BaseResourceController extends Controller
     {
         try {
             $this->service->delete($id);
-            return ResponseHelper::success('Successfully deleted.');
+            return ResponseHelper::success(trans('messages.successfully_deleted'));
         } catch (ModelNotFoundException $e) {
             return ResponseHelper::notFound(trans('messages.resource_not_found'));
         } catch (Exception $e) {
