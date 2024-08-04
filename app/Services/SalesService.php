@@ -113,7 +113,10 @@ class SalesService extends BaseResourceService
             $barang = $barangRepository->find($detail['barang_id']);
 
             if (empty($barang)) {
-                throw new ModelNotFoundException('Barang with ID ' . $detail['barang_id'] . ' not found. On line ' . ($index + 1));
+                throw new ModelNotFoundException(trans('messages.sales_line_not_found', [
+                    'id' => $detail['barang_id'],
+                    'line' => $index + 1
+                ]));
             }
 
             // Calculate prices and discount
@@ -189,7 +192,7 @@ class SalesService extends BaseResourceService
         $sales = $this->repository->find($id);
 
         if (empty($sales)) {
-            throw new ModelNotFoundException('Sales not found.');
+            throw new ModelNotFoundException(trans('messages.resource_not_found', ['resource' => 'Sales']));
         }
 
         $sales = $this->_updateSalesHeader($sales, $payload);
@@ -244,7 +247,10 @@ class SalesService extends BaseResourceService
             $barang = $barangRepository->find($detail['barang_id']);
 
             if (empty($barang)) {
-                throw new ModelNotFoundException('Invalid barang on line: ' . ($index + 1));
+                throw new ModelNotFoundException(trans('messages.sales_line_not_found', [
+                    'id' => $detail['barang_id'],
+                    'line' => $index + 1
+                ]));
             }
 
             // Calculate prices and discount

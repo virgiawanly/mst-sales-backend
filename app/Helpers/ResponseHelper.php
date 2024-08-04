@@ -67,7 +67,7 @@ class ResponseHelper
         return response()->json([
             'error' => true,
             'status' => 404,
-            'message' => $message ? $message : 'Resource not found.',
+            'message' => $message ? $message : trans('messages.resource_not_found'),
         ], 404);
     }
 
@@ -82,7 +82,7 @@ class ResponseHelper
         return response()->json([
             'error' => true,
             'status' => 401,
-            'message' => $message ? $message : 'Sorry you are not authorized to access this resource.',
+            'message' => $message ? $message : trans('messages.sorry_not_authorized'),
         ], 401);
     }
 
@@ -97,7 +97,7 @@ class ResponseHelper
         return response()->json([
             'error' => true,
             'status' => 403,
-            'message' => $message ? $message : 'Sorry you are forbidden to access this resource.',
+            'message' => $message ? $message : trans('messages.sorry_forbidden'),
         ], 403);
     }
 
@@ -112,7 +112,7 @@ class ResponseHelper
         return response()->json([
             'error' => true,
             'status' => 400,
-            'message' => $message ? $message : 'Sorry we could not process your request. Please try again Later.',
+            'message' => $message ? $message : trans('messages.sorry_bad_request'),
         ], 400);
     }
 
@@ -131,7 +131,7 @@ class ResponseHelper
         $errorMessage = $message;
 
         if (!config('app.debug')) {
-            $errorMessage = 'Something went wrong in our server. Please try again.';
+            $errorMessage = trans('messages.sorry_something_went_wrong');
         }
 
         $response = [
@@ -164,7 +164,7 @@ class ResponseHelper
         $response = [
             'error' => true,
             'status' => 422,
-            'message' => $message ? $message : 'Validation errors.',
+            'message' => $message ? $message : trans('messages.valdation_failed'),
         ];
 
         if ($errors) {
@@ -172,7 +172,7 @@ class ResponseHelper
         } else {
             // Set default errors, laravel validation
             $response['errors'] = [
-                'error' => [$message ? $message : 'Validation errors.'],
+                'error' => [$message ? $message : trans('messages.valdation_failed')],
             ];
         }
 
