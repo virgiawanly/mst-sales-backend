@@ -4,6 +4,7 @@ return [
     'successfully_created' => 'Successfully created',
     'successfully_updated' => 'Successfully updated',
     'successfully_retrieved' => 'Successfully retrieved',
+    'successfully_deleted' => 'Successfully deleted',
     'resource_not_found' => 'Resource not found',
     'named_resource_not_found' => ':name not found',
     'sorry_not_authorized' => 'Sorry, you are not authorized to perform this action',
