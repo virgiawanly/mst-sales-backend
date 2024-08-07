@@ -16,4 +16,18 @@ class CustomerRepository extends BaseResourceRepository implements CustomerRepos
     {
         $this->model = new Customer();
     }
+
+    /**
+     * Get total new customers count on the given date range.
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @return int
+     */
+    public function getNewCustomersCount(string $startDate, string $endDate): int
+    {
+        return $this->model
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+    }
 }
