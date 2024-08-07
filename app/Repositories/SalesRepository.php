@@ -73,4 +73,32 @@ class SalesRepository extends BaseResourceRepository implements SalesRepositoryI
             ->ofOrder($sortBy, $sortOrder)
             ->paginate($perPage);
     }
+
+    /**
+     * Get total gross sales on the given date range.
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @return float
+     */
+    public function getTotalGrossSales(string $startDate, string $endDate): float
+    {
+        return $this->model
+            ->whereBetween('tgl', [$startDate, $endDate])
+            ->sum('total_bayar');
+    }
+
+    /**
+     * Get total sales count on the given date range.
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @return int
+     */
+    public function getSalesCount(string $startDate, string $endDate): int
+    {
+        return $this->model
+            ->whereBetween('tgl', [$startDate, $endDate])
+            ->count();
+    }
 }

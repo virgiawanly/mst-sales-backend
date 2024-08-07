@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Sales;
 use App\Repositories\Interfaces\BarangRepositoryInterface;
 use App\Repositories\Interfaces\SalesRepositoryInterface;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Cache;
 
 class SalesService extends BaseResourceService
 {
